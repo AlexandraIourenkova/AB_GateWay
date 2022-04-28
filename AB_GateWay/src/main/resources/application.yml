@@ -1,0 +1,36 @@
+server:
+  port: 8761
+  
+  
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: amlModule
+        uri: https://lit-fjord-75959.herokuapp.com/
+        predicates:
+        - Path=/alphaBank/amlAprovement
+      - id: ataModule
+        uri: http://localhost:8889/
+        predicates:
+        - Path=/alphaBank/ataAprovement
+
+      - id: createAccount
+        uri: http://localhost:8880/
+        predicates:
+        - Path=/alphaBank/registerNewAccount
+
+      - id: dashboard
+        uri: http://localhost:8879/
+        predicates:
+        - Path=/alphaBank/getBalance/**
+
+      - id: signIn
+        uri: http://localhost:8887/
+        predicates:
+        - Path=/alphaBank/signIn/**
+
+      - id: transferMoney
+        uri: http://localhost:8886/
+        predicates:
+        - Path=/alphaBank/transferMoney
